@@ -315,12 +315,16 @@ vim.o.completeopt = 'menuone,noselect'
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
--- Custom
+-- [[ Custom settings ]]
 -- Make relative line numbers default
 vim.wo.relativenumber = true
 
--- Set custom shiftwidth
+-- Set custom tabstop and shiftwidth
+vim.o.tabstop = 3
 vim.o.shiftwidth = 3
+
+-- Set expandtab
+vim.o.expandtab = true
 
 -- [[ Basic Keymaps ]]
 
