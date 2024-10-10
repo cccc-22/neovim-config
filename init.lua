@@ -292,6 +292,28 @@ vim.o.mouse = 'a'
 --  See `:help 'clipboard'`
 vim.o.clipboard = 'unnamedplus'
 
+-- Custom: make clipboard use OSC52
+-- Prevents nvim freezing when putting text from SSH client
+-- Fix from:
+-- https://github.com/folke/which-key.nvim/issues/584#issuecomment-2126441539
+if vim.env.SSH_TTY then
+  local function paste()
+    return { vim.fn.split(vim.fn.getreg(""), "\n"), vim.fn.getregtype("") }
+  end
+  local osc52 = require("vim.ui.clipboard.osc52")
+  vim.g.clipboard = {
+    name = "OSC 52",
+    copy = {
+      ["+"] = osc52.copy("+"),
+      ["*"] = osc52.copy("*"),
+    },
+    paste = {
+      ["+"] = paste,
+      ["*"] = paste,
+    },
+  }
+end
+
 -- Enable break indent
 vim.o.breakindent = true
 
